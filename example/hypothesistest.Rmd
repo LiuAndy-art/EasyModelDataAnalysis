@@ -1,0 +1,772 @@
+# 假设检验
+
+## 单正态总体均值检验(t检验)
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60), test.type = "t")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60), test.type = "t", alternative = "less", level=0.9)
+```
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60), test.type = "t", alternative="greater", level=0.99)
+```
+
+## 单正态总体均值检验(z检验)
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60, sigma2=10), test.type = "z")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60, sigma2=10), test.type = "z", alternative = "less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, param.list=list(mu=60, sigma2=10), test.type = "z", alternative = "greater", level=0.99)
+```
+
+## 两正态总体方差齐性检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "var")
+```
+### 左边检验
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "var", alternative="less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "var", alternative="greater", level=0.99)
+```
+
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex,  carData::Arrests, test.type = "var")
+```
+
+## 两正态总体均值检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex=="Male"], carData::Arrests$age[carData::Arrests$sex=="Female"], test.type = "2t")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex=="Male"], carData::Arrests$age[carData::Arrests$sex=="Female"], test.type = "2t", alternative = "less", level=0.9, param.list=list(mu=0.3))
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex=="Male"], carData::Arrests$age[carData::Arrests$sex=="Female"], test.type = "2t", alternative = "greater", level=0.99, param.list=list(mu=0.3))
+```
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex, carData::Arrests, test.type = "2t")
+```
+
+## 成对t检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "pair-t")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "pair-t", alternative = "less", level=0.9, param.list=list(mu=0.3))
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "pair-t", alternative = "greater", level=0.99, param.list=list(mu=0.3))
+```
+
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(defectives~manufacturer, BSDA::Autogear, test.type = "pair-t")
+```
+
+## 精确比例检验（二项检验）
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "binom")
+```
+
+给定成功事件的次数和失败的次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(c(100, 90), param.list=list(p=0.5), test.type = "binom")
+```
+
+### 左边检验
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "binom", alternative = "less", level=0.9)
+```
+
+
+给定成功事件的次数和失败的次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(c(100, 90), param.list=list(p=0.5), test.type = "binom", alternative = "less", level=0.9)
+```
+
+### 右边检验
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "binom", alternative = "greater", level=0.99)
+```
+
+给定成功事件的次数和失败的次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(c(100, 90), param.list=list(p=0.5), test.type = "binom", alternative = "greater", level=0.99)
+```
+
+### 无法直接对01序列检验
+
+二项检验不可以直接对01序列检验，需要频数求解或者求和之后再检验，以双边检验为例。
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 1, 0.58)
+res <- hypothesistest(sum(x), param.list=list(n=length(x), p=0.5), test.type = "binom")
+```
+## 符号检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 100, 0.58)
+res <- hypothesistest(x, param.list=list(Q=58, p=0.5), test.type = "sign")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 100, 0.58)
+res <- hypothesistest(x, param.list=list(Q=58, p=0.5), test.type = "sign", alternative = "less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 100, 0.58)
+res <- hypothesistest(x, param.list=list(Q=58, p=0.5), test.type = "sign", alternative = "greater", level=0.99)
+```
+## 单样本比例检验(渐近正态)
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "prop")
+```
+
+### 左边检验
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "prop", alternative = "less", level=0.9)
+```
+
+### 右边检验
+
+给定成功事件的次数和总次数，以及要检验的成功事件概率p值。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(100, param.list=list(n=300, p=0.5), test.type = "prop", alternative = "greater", level=0.99)
+```
+
+### 无法直接对01序列检验
+
+渐近正态的比例检验不可以直接对01序列检验，以双边检验为例。
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 1, 0.58)
+res <- hypothesistest(sum(x), param.list=list(n=length(x), p=0.5), test.type = "prop")
+```
+
+## 两样本比例相等检验（渐近正态）
+
+这是可以直接对01序列进行检验的。
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 1, 0.5)
+y <- rbinom(40, 1, 0.58)
+res <- hypothesistest(x, y, test.type = "2prop")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 1, 0.5)
+y <- rbinom(40, 1, 0.58)
+res <- hypothesistest(x, y, test.type = "2prop", alternative="less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(30, 1, 0.5)
+y <- rbinom(40, 1, 0.58)
+res <- hypothesistest(x, y, test.type = "2prop", alternative="greater", level=0.99)
+```
+## 多样本比例相等检验（渐近正态）
+
+给定多个实验组下，成功事件的次数和总试验次数即可。
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- c(20, 34, 45, 56)
+n <- c(30, 40, 50, 60)
+res <- hypothesistest(x, param.list=list(n=n), test.type = "M_prop")
+```
+给定多个实验组下，成功事件的次数和总试验次数即可。
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- c(20, 34, 45, 56)
+n <- c(30, 40, 50, 60)
+res <- hypothesistest(x, param.list=list(n=n), test.type = "M_prop", alternative="less", level=0.9)
+```
+给定多个实验组下，成功事件的次数和总试验次数即可。
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- c(20, 34, 45, 56)
+n <- c(30, 40, 50, 60)
+res <- hypothesistest(x, param.list=list(n=n), test.type = "M_prop", alternative="greater", level=0.99)
+```
+## 卡方拟合优度检验
+
+拟合优度只有双边检验。
+
+```{r}
+source("../hypothesistest.R")
+x <- c(20, 34, 45, 56)
+# 均匀分布检验
+res <- hypothesistest(x, test.type = "gof")
+```
+
+```{r}
+source("../hypothesistest.R")
+x <- c(20, 34, 45, 56)
+res <- hypothesistest(x, test.type = "gof", param.list=list(p=c(0.1, 0.2, 0.3, 0.4)))
+```
+
+## 列联表独立性检验
+
+列联表独立性检验只有双边检验，检验两个变量是否有关系。
+
+只能输入一个矩阵或者table作为参数。
+
+```{r}
+source("../hypothesistest.R")
+x <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(x) <- list(gender = c("F", "M"), party = c("Democrat","Independent", "Republican"))
+res <- hypothesistest(x, test.type = "contingency_table")
+```
+## Shapiro-Wilk正态性检验
+
+只能检验数据是否为正态分布，只能是“双边检验”。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, test.type = "shapiro")
+```
+## KS正态性检验
+
+需要给定一些分布的参数，按照R中基本分布函数pxxx中的参数给定即可。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, test.type = "ks", param.list=list(dist="pnorm"), mean=mean(women$height), sd=sd(women$height))
+```
+
+## 两样本同分布KS检验
+
+直接对两个数据样本检验。
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "2ks")
+```
+使用公式分组来检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex, carData::Arrests, test.type = "2ks")
+```
+
+## 相关系数检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "cor", cor.method = "pearson")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "cor", cor.method = "kendall", alternative="less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "cor", cor.method = "spearman", alternative="greater", level=0.99)
+```
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(~CONT+INTG, USJudgeRatings, test.type = "cor", cor.method = "pearson")
+```
+
+## 两(多)样本bartlett方差齐性检验
+
+只能检验方差是否相等，没有额外的参数。
+
+给定一个数值变量和分组变量
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age, carData::Arrests$sex, test.type = "bartlett")
+```
+使用公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex, carData::Arrests, test.type = "bartlett")
+```
+## 两(多)样本levene方差齐性检验
+
+只能检验方差是否相等，没有额外的参数。
+
+给定一个数值变量和分组变量
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age, carData::Arrests$sex, test.type = "levene")
+```
+
+使用公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex, carData::Arrests, test.type = "levene")
+```
+
+## 游程检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(100, 1, 0.4)
+res <- hypothesistest(x, test.type = "runtest")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(100, 1, 0.4)
+res <- hypothesistest(x, test.type = "runtest", alternative = "less")
+```
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rbinom(100, 1, 0.4)
+res <- hypothesistest(x, test.type = "runtest", alternative = "greater")
+```
+
+## 非参数单样本中位数符号秩检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, test.type = "signrank", alternative = "two.sided", param.list=list(mu=160))
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, test.type = "signrank", alternative = "less", param.list=list(mu=160), level=0.9)
+```
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, test.type = "signrank", alternative = "greater", param.list=list(mu=160), level=0.99)
+```
+
+## 非参数两样本中位数相等秩和检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex == "Female"], carData::Arrests$age[carData::Arrests$sex == "Male"], test.type = "ranksum", alternative = "two.sided")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex == "Female"], carData::Arrests$age[carData::Arrests$sex == "Male"], test.type = "ranksum", alternative = "less", level=0.9)
+```
+
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(carData::Arrests$age[carData::Arrests$sex == "Female"], carData::Arrests$age[carData::Arrests$sex == "Male"], test.type = "ranksum", alternative = "greater", level=0.99)
+```
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(age~sex, carData::Arrests, test.type = "ranksum", alternative = "two.sided")
+```
+
+## 非参数配对样本中位数相等秩和检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "A"], BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "B"], test.type = "pair-ranksum", alternative = "two.sided")
+```
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "A"], BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "B"], test.type = "pair-ranksum", alternative = "less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "A"], BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "B"], test.type = "pair-ranksum", alternative = "greater", level=0.99)
+```
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(defectives~manufacturer, BSDA::Autogear, test.type = "pair-ranksum")
+```
+
+## 列联表独立性Fisher精确检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(x) <- list(gender = c("F", "M"), party = c("Democrat","Independent", "Republican"))
+res <- hypothesistest(x, test.type = "fisherexact-contingency_table")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(x) <- list(gender = c("F", "M"), party = c("Democrat","Independent", "Republican"))
+res <- hypothesistest(x, test.type = "fisherexact-contingency_table", alternative="less", level=0.9)
+```
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(x) <- list(gender = c("F", "M"), party = c("Democrat","Independent", "Republican"))
+res <- hypothesistest(x, test.type = "fisherexact-contingency_table", alternative="greater", level=0.99)
+```
+## cox-staut趋势性检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rpois(100, 5)
+res <- hypothesistest(x, test.type = "cox-staut")
+```
+## Mann-Kendall趋势性检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rpois(100, 5)
+res <- hypothesistest(x, test.type = "Mann-Kendall")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rpois(100, 5)
+res <- hypothesistest(x, test.type = "Mann-Kendall", alternative = "less")
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rpois(100, 5)
+res <- hypothesistest(x, test.type = "Mann-Kendall", alternative = "greater")
+```
+
+## 非参数两样本方差相等Mood检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "mood-2var")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "mood-2var", alternative="less")
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "mood-2var", alternative="greater")
+```
+
+## 非参数两样本方差相等Fligner-Killeen检验
+
+### 两个样本
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "A"], BSDA::Autogear$defectives[BSDA::Autogear$manufacturer == "B"], test.type = "Fligner-Killeen-2var")
+```
+
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(defectives~manufacturer, BSDA::Autogear, test.type = "Fligner-Killeen-2var")
+```
+
+## 非参数两样本方差相等Ansari-Bradley检验
+
+### 双边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "Ansari-Bradley-2var")
+```
+
+### 左边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "Ansari-Bradley-2var", alternative="less", level=0.9)
+```
+
+### 右边检验
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(women$height, women$weight, test.type = "Ansari-Bradley-2var", alternative="greater", level=0.99)
+```
+## 非参数多样本中位数的检验Kruskal-Wallis检验
+
+### 列表形式
+
+```{r}
+source("../hypothesistest.R")
+x <- c(2.9, 3.0, 2.5, 2.6, 3.2)
+y <- c(3.8, 2.7, 4.0, 2.4)
+z <- c(2.8, 3.4, 3.7, 2.2, 2.0)
+x <- list(x,y,z)
+res <- hypothesistest(x, test.type = "Kruskal-wallis-ranksum")
+```
+
+
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+res <- hypothesistest(Ozone ~ Month, airquality, test.type = "Kruskal-wallis-ranksum")
+```
+## 时间序列白噪声检验Box-Pierce检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rnorm(100)
+res <- hypothesistest(x, test.type = "Box-Pierce", param.list = list(lag=2))
+```
+
+## 时间序列白噪声检验Ljung-Box检验
+
+```{r}
+source("../hypothesistest.R")
+x <- rnorm(100)
+res <- hypothesistest(x, test.type = "Ljung-Box", param.list = list(lag=2))
+```
+
+## 非参数无重复因素的方差分析
+
+### 矩阵形式
+
+```{r}
+source("../hypothesistest.R")
+RoundingTimes <- matrix(
+  c(
+    5.40, 5.50, 5.55,
+       5.85, 5.70, 5.75,
+       5.20, 5.60, 5.50,
+       5.55, 5.50, 5.40,
+       5.90, 5.85, 5.70,
+       5.45, 5.55, 5.60,
+       5.40, 5.40, 5.35,
+       5.45, 5.50, 5.35,
+       5.25, 5.15, 5.00,
+       5.85, 5.80, 5.70,
+       5.25, 5.20, 5.10,
+       5.65, 5.55, 5.45,
+       5.60, 5.35, 5.45,
+       5.05, 5.00, 4.95,
+       5.50, 5.50, 5.40,
+       5.45, 5.55, 5.50,
+       5.55, 5.55, 5.35,
+       5.45, 5.50, 5.55,
+       5.50, 5.45, 5.25,
+       5.65, 5.60, 5.40,
+       5.70, 5.65, 5.55,
+       6.30, 6.30, 6.25),
+     nrow = 22,
+     byrow = TRUE,
+     dimnames = list(1 : 22, c("Round Out", "Narrow Angle", "Wide Angle")))
+res <- hypothesistest(RoundingTimes, test.type = "friedman-ranksum")
+```
+
+### 公式分组
+
+```{r}
+source("../hypothesistest.R")
+RoundingTimes <- matrix(
+  c(
+    5.40, 5.50, 5.55,
+       5.85, 5.70, 5.75,
+       5.20, 5.60, 5.50,
+       5.55, 5.50, 5.40,
+       5.90, 5.85, 5.70,
+       5.45, 5.55, 5.60,
+       5.40, 5.40, 5.35,
+       5.45, 5.50, 5.35,
+       5.25, 5.15, 5.00,
+       5.85, 5.80, 5.70,
+       5.25, 5.20, 5.10,
+       5.65, 5.55, 5.45,
+       5.60, 5.35, 5.45,
+       5.05, 5.00, 4.95,
+       5.50, 5.50, 5.40,
+       5.45, 5.55, 5.50,
+       5.55, 5.55, 5.35,
+       5.45, 5.50, 5.55,
+       5.50, 5.45, 5.25,
+       5.65, 5.60, 5.40,
+       5.70, 5.65, 5.55,
+       6.30, 6.30, 6.25),
+     nrow = 22,
+     byrow = TRUE,
+     dimnames = list(1 : 22, c("Round Out", "Narrow Angle", "Wide Angle")))
+wb <- aggregate(warpbreaks$breaks, by = list(w = warpbreaks$wool, t = warpbreaks$tension), FUN = mean)
+print(wb)
+res <- hypothesistest(x~w|t, wb, test.type = "friedman-ranksum")
+```
+

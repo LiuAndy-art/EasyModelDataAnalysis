@@ -1,0 +1,218 @@
+# 线性模型
+
+## 线性模型估计
+
+### 一元线性模型
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(weight~height, women)
+print(res)
+```
+
+### 多元线性模型
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~disp+hp+drat+wt+qsec, mtcars)
+print(res)
+```
+
+### 带交互项的线性模型
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~disp+wt+disp*wt, mtcars)
+print(res)
+```
+### 不带截距项的模型
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~disp+wt-1, mtcars)
+print(res)
+```
+
+### 使用剩下所有变量回归
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~., mtcars)
+print(res)
+```
+
+## 线性模型方差分析
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.anova=1)
+print(res)
+```
+
+## 获取估计系数
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.coef=1)
+print(res)
+```
+
+## 获取残差
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.residuals = 1)
+print(res)
+```
+
+## 获取拟合值
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.fittedvalue = 1)
+print(res)
+```
+
+## 影响点分析
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.influence = 1)
+print(res)
+```
+
+## 获取标准化残差
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.rstandard=1)
+print(res)
+```
+
+## 获取学生化残差
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.rstudent=1)
+print(res)
+```
+
+## 获取cook距离
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.cook=1)
+print(res)
+```
+
+## 获取帽子矩阵的值
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.hatvalue = 1)
+print(res)
+```
+
+## 绘制回归诊断图
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.plot=1)
+print(res)
+```
+
+## 绘制回归诊断图（多个）
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.plot=1, plotwhich=1:5)
+print(res)
+```
+
+## Breusch_Godfrey自相关检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Breusch_Godfrey_Test = 1)
+print(res)
+```
+
+## Breusch_Godfrey自相关检验（指定p阶相关）
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Breusch_Godfrey_Test = 1, totest.autocorr.lag = 3)
+print(res)
+```
+
+## Breusch_Pagan异方差检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Breusch_Pagan_Test = 1)
+print(res)
+```
+
+## 系数的置信区间
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.coefci = 1)
+print(res)
+```
+
+## 系数的置信区间（指定置信水平）
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.coefci = 1, level=0.99)
+print(res)
+```
+
+## DW检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.dwtest = 1)
+print(res)
+```
+
+## Goldfeld_Quandt异方差检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Goldfeld_Quandt_Test = 1)
+print(res)
+```
+
+## Harvey_Collier线性检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Harvey_Collier_Test = 1)
+print(res)
+```
+
+## Harrison_McCabe异方差检验
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.Harrison_McCabe_Test = 1)
+print(res)
+```
+
+## 变量添加图
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(mpg~wt+disp+disp*wt, mtcars, is.add_variable_plot = 1, addwhich_var = "wt")
+print(res)
+```
+
+## 预测
+
+```{r}
+source("../linearmodel.R")
+res <- linearmodel(dist~speed, cars, newdata = data.frame(speed=c(20,30,40,50,60,10)))
+print(res)
+```
