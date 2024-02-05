@@ -6,7 +6,7 @@
 
 ### 示例
 
-[线性模型]()
+[线性模型](https://github.com/LiuAndy-art/EasyModelDataAnalysis/blob/main/linearmodel.md)
 
-[假设检验]()
+[假设检验](https://github.com/LiuAndy-art/EasyModelDataAnalysis/blob/main/hypothesistest.md)
 
